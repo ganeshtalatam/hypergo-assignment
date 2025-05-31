@@ -1,0 +1,71 @@
+[
+  {
+    "description": "This is your public display name.",
+    "label": "Username",
+    "name": "name_4829354071",
+    "placeholder": "shadcn",
+    "required": true,
+    "rowIndex": 0,
+    "type": "text",
+    "value": "",
+    "variant": "Input",
+    "min": 4,
+    "max": 20
+  },
+  {
+    "description": "You can @mention other users and organizations.",
+    "label": "Bio",
+    "name": "text-custom",
+    "placeholder": "Placeholder",
+    "required": true,
+    "rowIndex": 0,
+    "type": "",
+    "value": "",
+    "variant": "Textarea",
+    "className": "bg-green"
+  },
+  {
+    "description": "You can manage email addresses in your email settings.",
+    "label": "Email",
+    "name": "name_4471869801",
+    "placeholder": "Select a verified email to display",
+    "required": true,
+    "rowIndex": 0,
+    "type": "",
+    "value": "",
+    "variant": "Select"
+  },
+  {
+    "description": "You can manage your mobile notifications in the mobile settings page.",
+    "label": "Use different settings for my mobile devices",
+    "name": "name_1345370546",
+    "placeholder": "Placeholder",
+    "required": true,
+    "rowIndex": 0,
+    "type": "",
+    "value": "",
+    "variant": "Checkbox"
+  },
+  {
+    "description": "Your date of birth is used to calculate your age.",
+    "label": "Date of birth",
+    "name": "name_2593072597",
+    "placeholder": "Placeholder",
+    "required": true,
+    "rowIndex": 0,
+    "type": "",
+    "value": "",
+    "variant": "Date Picker"
+  },
+  {
+    "description": "This is your public display name.",
+    "label": "Username",
+    "name": "name_5477081911",
+    "placeholder": "shadcn",
+    "required": true,
+    "rowIndex": 0,
+    "type": "",
+    "value": "",
+    "variant": "Input"
+  }
+]

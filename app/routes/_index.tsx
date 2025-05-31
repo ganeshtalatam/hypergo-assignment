@@ -1,6 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
-// import { Button } from "~/components/ui/button";
 import AddComponentsInterface from "~/grids/AddComponentsInterface";
+// import { Button } from "~/components/ui/button";
+// import AddComponentsInterface from "~/grids/AddComponentsInterface";
+// import FormBuilderLayout from "~/grids/FormBuilderLayout";
 import FormPreview from "~/grids/FormPreview";
 import Sections from "~/grids/Sections";
 
@@ -14,12 +16,13 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div className="flex flex-row items-start justify-between gap-4 p-4">
-      <Sections/>
+      <div className="flex flex-col w-1/4 h-full gap-4">
+        <Sections />
+        <AddComponentsInterface />
+      </div>
       <FormPreview />
-      <AddComponentsInterface />
-
     </div>
-  )
+  );
 }
 
 // const resources = [

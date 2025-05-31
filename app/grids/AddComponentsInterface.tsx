@@ -1,25 +1,52 @@
+import { useState } from "react";
 import { Card, CardContent } from "~/components/ui/card";
+import { getInitialFormConfig } from "~/utils/helpers";
+
+export interface IField {
+  label: string;
+  variant: "Input" | "Textarea" | "Checkbox" | "Select" | "DatePicker";
+}
+
+export interface IFormField {
+  variant: IField["variant"];
+  type: string;
+  placeholder?: string;
+  name: string;
+  label: string;
+  description?: string;
+}
+
+const initialComponents: IField[] = [
+  { label: "Input", variant: "Input" },
+  { label: "Text Area", variant: "Textarea" },
+  { label: "Checkbox", variant: "Checkbox" },
+  { label: "Dropdown", variant: "Select" },
+  { label: "Date", variant: "DatePicker" },
+];
 
 const AddComponentsInterface = () => {
-  const components = [
-    { id: 1, name: "Text" },
-    { id: 2, name: "Text Area" },
-    { id: 3, name: "Checkbox" },
-    { id: 4, name: "Dropdown" },
-    { id: 5, name: "Date" },
-  ];
+  // Drag event handlers
+  const handleDragStart = (e: React.DragEvent, field: IField) => {
+    console.log("Drag started for:", field);
+    e.dataTransfer.setData("variant", field.variant);
+  };
+
   return (
-    <Card className="w-1/4 h-full p-4">
-      {components.map((component) => (
-        <Card
-          key={component.id}
-          className="w-full p-2 mb-2 flex flex-col items-center"
-        >
-          <CardContent className="flex flex-col items-center align-middle justify-center">
-            {component.name || "New Component"}
-          </CardContent>
-        </Card>
-      ))}
+    <Card className="w-5/6 h-full p-4">
+      {initialComponents.map((component) => {
+        return (
+          <Card
+            key={component.variant}
+            className="w-full p-2 mb-2 flex flex-col items-center cursor-move"
+            draggable
+            onDragStart={(e) => handleDragStart(e, component)}
+          >
+            <CardContent className="flex flex-col items-center align-middle justify-center">
+              {component.label}
+            </CardContent>
+          </Card>
+        );
+      })}
     </Card>
   );
 };
