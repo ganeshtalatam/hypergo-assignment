@@ -24,21 +24,25 @@ export default function Index() {
   >(null);
 
   return (
-    <div className="flex flex-row items-start justify-between gap-4 p-4">
-      <div className="flex flex-col w-1/4 h-full gap-4">
+    <div className="flex flex-row items-start justify-between gap-4 p-4 max-h-[100vh] overflow-y-auto box-border">
+      <div className="w-1/5 flex flex-col gap-4 max-h-[95vh] overflow-y-auto">
         <Sections />
         <AddComponentsInterface />
       </div>
-      <FormPreview
-        formFields={formFields}
-        setFormFields={setFormFields}
-        setSelectedComponent={setSelectedComponent}
-      />
-      <EditComponentConfig
-        selectedComponent={selectedComponent}
-        formFields={formFields}
-        setFormFields={setFormFields}
-      />
+      <div className="w-3/5 max-h-[95vh] overflow-y-auto">
+        <FormPreview
+          formFields={formFields}
+          setFormFields={setFormFields}
+          setSelectedComponent={setSelectedComponent}
+        />
+      </div>
+      <div className="w-1/5">
+        <EditComponentConfig
+          selectedComponent={selectedComponent}
+          formFields={formFields}
+          setFormFields={setFormFields}
+        />
+      </div>
     </div>
   );
 }

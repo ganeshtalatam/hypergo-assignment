@@ -51,7 +51,7 @@ const Sections = () => {
   };
 
   return (
-    <Card className="w-5/6 h-1/3 p-4 flex flex-col gap-4 items-center">
+    <Card className="w-full h-1/3 p-4 flex flex-col gap-4 items-center">
       {sectionArray.map((section) => (
         <Card
           className="w-full p-2 flex flex-row items-center"

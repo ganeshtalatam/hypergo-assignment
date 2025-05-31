@@ -30,7 +30,7 @@ const AddComponentsInterface = () => {
   };
 
   return (
-    <Card className="w-5/6 h-full p-4">
+    <Card className="h-full p-4">
       {initialComponents.map((component) => {
         return (
           <Card
