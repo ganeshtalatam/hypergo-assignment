@@ -63,7 +63,9 @@ function EditComponentConfig({
                   <Input
                     className="w-full"
                     value={
-                      component[property.name as keyof IFormField] as string
+                      (component[
+                        property.name as keyof IFormField
+                      ] as string) ?? ""
                     }
                     onChange={(e) =>
                       handleChangeProperty(
@@ -76,7 +78,7 @@ function EditComponentConfig({
               ))}
               <Label className="flex flex-row items-center gap-2 border-2 border-input w-fit p-2 rounded-md">
                 <Checkbox
-                  checked={component.required}
+                  checked={component.required ?? false}
                   onCheckedChange={(checked) =>
                     handleChangeProperty("required", checked as boolean)
                   }

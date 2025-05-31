@@ -15,6 +15,12 @@ export interface IFormField {
   required?: boolean;
 }
 
+export interface ISection {
+  id: string;
+  label: string;
+  fields: IFormField[];
+}
+
 const initialComponents: IField[] = [
   { label: "Input", variant: "Input" },
   { label: "Text Area", variant: "Textarea" },

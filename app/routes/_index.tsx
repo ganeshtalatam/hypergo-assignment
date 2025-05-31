@@ -2,6 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 import AddComponentsInterface, {
   IFormField,
+  ISection,
 } from "~/grids/AddComponentsInterface";
 import EditComponentConfig from "~/grids/EditComponentConfig";
 // import { Button } from "~/components/ui/button";
@@ -9,6 +10,7 @@ import EditComponentConfig from "~/grids/EditComponentConfig";
 // import FormBuilderLayout from "~/grids/FormBuilderLayout";
 import FormPreview from "~/grids/FormPreview";
 import Sections from "~/grids/Sections";
+import { getRandomId } from "~/utils/helpers";
 
 export const meta: MetaFunction = () => {
   return [
@@ -18,6 +20,13 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const [sections, setSections] = useState<ISection[]>([
+    {
+      id: getRandomId("section"),
+      label: "Section 1",
+      fields: [],
+    },
+  ]);
   const [formFields, setFormFields] = useState<IFormField[]>([]);
   const [selectedComponent, setSelectedComponent] = useState<
     IFormField["name"] | null
@@ -26,7 +35,7 @@ export default function Index() {
   return (
     <div className="flex flex-row items-start justify-between gap-4 p-4 max-h-[100vh] overflow-y-auto box-border">
       <div className="w-1/5 flex flex-col gap-4 max-h-[95vh] overflow-y-auto">
-        <Sections />
+        <Sections sections={sections} setSections={setSections} />
         <AddComponentsInterface />
       </div>
       <div className="w-3/5 max-h-[95vh] overflow-y-auto">

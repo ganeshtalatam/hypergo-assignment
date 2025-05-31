@@ -1,7 +1,7 @@
 import { IField, IFormField } from "~/grids/AddComponentsInterface";
 
 export function getInitialFormConfig(vairant: IField["variant"]): IFormField {
-  const newFieldName = `field_${Math.random().toString().slice(-10)}`;
+  const newFieldName = getRandomId("field");
 
   switch (vairant) {
     case "Input":
@@ -50,4 +50,8 @@ export function getInitialFormConfig(vairant: IField["variant"]): IFormField {
         label: "New Input",
       };
   }
+}
+
+export function getRandomId(prefix: string) {
+  return `${prefix}_${Math.random().toString().slice(-10)}`;
 }
