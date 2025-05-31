@@ -69,7 +69,7 @@ const FormPreview = ({
 
   return (
     <Card
-      className="flex-1 min-h-[300px] p-4 border-2 border-dashed border-gray-300"
+      className="flex-1 min-h-[300px] p-4 border-2 border-dashed border-gray-300 max-h-[95vh] overflow-y-auto"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
@@ -82,21 +82,32 @@ const FormPreview = ({
             </div>
           ) : (
             formFields.map((comp) => (
-              <FormField
-                key={comp.name}
-                control={form.control}
-                name={comp.name}
-                render={({ field }) => (
-                  <FormItem onClick={() => setSelectedComponent(comp.name)}>
-                    <FormLabel required={comp.required}>{comp.label}</FormLabel>
-                    <FormControl>
-                      <ComponentRenderer formFieldConfig={comp} {...field} />
-                    </FormControl>
-                    <FormDescription>{comp.description}</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div key={comp.name} className="relative mt-5">
+                <span className="absolute -top-3 right-0 z-10 bg-white px-2 text-xs font-semibold text-gray-500 rounded-sm">
+                  {comp.name}
+                </span>
+                <Card className="p-4">
+                  <FormField
+                    control={form.control}
+                    name={comp.name}
+                    render={({ field }) => (
+                      <FormItem onClick={() => setSelectedComponent(comp.name)}>
+                        <FormLabel required={comp.required}>
+                          {comp.label}
+                        </FormLabel>
+                        <FormControl>
+                          <ComponentRenderer
+                            formFieldConfig={comp}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>{comp.description}</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </Card>
+              </div>
             ))
           )}
         </form>
