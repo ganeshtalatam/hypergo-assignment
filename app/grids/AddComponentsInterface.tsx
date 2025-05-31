@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { Card, CardContent } from "~/components/ui/card";
-import { getInitialFormConfig } from "~/utils/helpers";
 
 export interface IField {
   label: string;
@@ -27,7 +25,6 @@ const initialComponents: IField[] = [
 const AddComponentsInterface = () => {
   // Drag event handlers
   const handleDragStart = (e: React.DragEvent, field: IField) => {
-    console.log("Drag started for:", field);
     e.dataTransfer.setData("variant", field.variant);
   };
 

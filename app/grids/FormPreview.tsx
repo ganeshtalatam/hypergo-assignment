@@ -2,6 +2,19 @@ import { useState } from "react";
 import { Card } from "~/components/ui/card";
 import { IFormField } from "./AddComponentsInterface";
 import { getInitialFormConfig } from "~/utils/helpers";
+import { Input } from "~/components/ui/input";
+import { Textarea } from "~/components/ui/textarea";
+
+function ComponentRenderer({ component }: { component: IFormField }) {
+  switch (component.variant) {
+    case "Input":
+      return <Input />;
+    case "Textarea":
+      return <Textarea />;
+    default:
+      return null;
+  }
+}
 
 const FormPreview = () => {
   const [formFields, setFormFields] = useState<IFormField[]>([]);
@@ -26,10 +39,8 @@ const FormPreview = () => {
       {formFields.length === 0 ? (
         <div className="text-gray-400 text-center">Drop components here</div>
       ) : (
-        formFields.map((comp, idx) => (
-          <div key={idx} className="mb-2 p-2 border rounded bg-gray-50">
-            {comp.name}
-          </div>
+        formFields.map((comp) => (
+          <ComponentRenderer key={comp.name} component={comp} />
         ))
       )}
     </Card>
