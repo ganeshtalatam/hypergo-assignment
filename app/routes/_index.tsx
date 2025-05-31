@@ -27,21 +27,39 @@ export default function Index() {
       fields: [],
     },
   ]);
-  const [formFields, setFormFields] = useState<IFormField[]>([]);
+  const [currentSection, setCurrentSection] = useState<ISection["id"] | null>(
+    null
+  );
   const [selectedComponent, setSelectedComponent] = useState<
     IFormField["name"] | null
   >(null);
 
+  const formFields =
+    sections.find((section) => section.id === currentSection)?.fields ?? [];
+
+  const updateFormFields = (fields: IFormField[]) => {
+    setSections(
+      sections.map((section) =>
+        section.id === currentSection ? { ...section, fields } : section
+      )
+    );
+  };
+
   return (
     <div className="flex flex-row items-start justify-between gap-4 p-4 max-h-[100vh] overflow-y-auto box-border">
       <div className="w-1/5 flex flex-col gap-4 max-h-[95vh] overflow-y-auto">
-        <Sections sections={sections} setSections={setSections} />
+        <Sections
+          sections={sections}
+          setSections={setSections}
+          currentSection={currentSection}
+          setCurrentSection={setCurrentSection}
+        />
         <AddComponentsInterface />
       </div>
       <div className="w-3/5 max-h-[95vh] overflow-y-auto">
         <FormPreview
           formFields={formFields}
-          setFormFields={setFormFields}
+          updateFormFields={updateFormFields}
           setSelectedComponent={setSelectedComponent}
         />
       </div>
@@ -49,7 +67,7 @@ export default function Index() {
         <EditComponentConfig
           selectedComponent={selectedComponent}
           formFields={formFields}
-          setFormFields={setFormFields}
+          updateFormFields={updateFormFields}
         />
       </div>
     </div>

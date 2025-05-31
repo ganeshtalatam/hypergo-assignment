@@ -40,11 +40,11 @@ function ComponentRenderer({
 
 const FormPreview = ({
   formFields,
-  setFormFields,
+  updateFormFields,
   setSelectedComponent,
 }: {
   formFields: IFormField[];
-  setFormFields: React.Dispatch<React.SetStateAction<IFormField[]>>;
+  updateFormFields: (fields: IFormField[]) => void;
   setSelectedComponent: React.Dispatch<
     React.SetStateAction<IFormField["name"] | null>
   >;
@@ -54,7 +54,7 @@ const FormPreview = ({
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     const variant = e.dataTransfer.getData("variant") as IFormField["variant"];
-    setFormFields((prev) => [...prev, getInitialFormConfig(variant)]);
+    updateFormFields([...formFields, getInitialFormConfig(variant)]);
   };
 
   const handleDragOver = (e: React.DragEvent) => {

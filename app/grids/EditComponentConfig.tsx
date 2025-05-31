@@ -7,18 +7,18 @@ import { Button } from "~/components/ui/button";
 
 function EditComponentConfig({
   formFields,
-  setFormFields,
+  updateFormFields,
   selectedComponent,
 }: {
   formFields: IFormField[];
-  setFormFields: React.Dispatch<React.SetStateAction<IFormField[]>>;
+  updateFormFields: (fields: IFormField[]) => void;
   selectedComponent: IFormField["name"] | null;
 }) {
   const handleChangeProperty = (
     property: keyof IFormField,
     value: string | boolean
   ) => {
-    setFormFields(
+    updateFormFields(
       formFields.map((field) =>
         field.name === selectedComponent
           ? { ...field, [property]: value }
@@ -91,7 +91,7 @@ function EditComponentConfig({
               className="w-full mt-7"
               variant="destructive"
               onClick={() => {
-                setFormFields(
+                updateFormFields(
                   formFields.filter((field) => field.name !== selectedComponent)
                 );
               }}
