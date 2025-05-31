@@ -4,13 +4,28 @@ import { IFormField } from "./AddComponentsInterface";
 import { getInitialFormConfig } from "~/utils/helpers";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "~/components/ui/form";
 
-function ComponentRenderer({ component }: { component: IFormField }) {
-  switch (component.variant) {
+function ComponentRenderer({
+  variant,
+  ...props
+}: {
+  variant: IFormField["variant"];
+}) {
+  switch (variant) {
     case "Input":
-      return <Input />;
+      return <Input {...props} />;
     case "Textarea":
-      return <Textarea />;
+      return <Textarea {...props} />;
     default:
       return null;
   }
@@ -18,6 +33,7 @@ function ComponentRenderer({ component }: { component: IFormField }) {
 
 const FormPreview = () => {
   const [formFields, setFormFields] = useState<IFormField[]>([]);
+  const form = useForm();
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -29,20 +45,46 @@ const FormPreview = () => {
     e.preventDefault();
   };
 
+  function onSubmit(values: Record<string, any>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
+  }
+
   return (
     <Card
       className="flex-1 min-h-[300px] p-4 border-2 border-dashed border-gray-300"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
-      <div className="font-semibold mb-2">Form Preview</div>
-      {formFields.length === 0 ? (
-        <div className="text-gray-400 text-center">Drop components here</div>
-      ) : (
-        formFields.map((comp) => (
-          <ComponentRenderer key={comp.name} component={comp} />
-        ))
-      )}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <div className="font-semibold mb-2">Form Preview</div>
+          {formFields.length === 0 ? (
+            <div className="text-gray-400 text-center">
+              Drop components here
+            </div>
+          ) : (
+            formFields.map((comp) => (
+              <FormField
+                key={comp.name}
+                control={form.control}
+                name={comp.name}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{comp.label}</FormLabel>
+                    <FormControl>
+                      <ComponentRenderer variant={comp.variant} {...field} />
+                    </FormControl>
+                    <FormDescription>{comp.description}</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ))
+          )}
+        </form>
+      </Form>
     </Card>
   );
 };
