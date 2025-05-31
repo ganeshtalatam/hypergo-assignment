@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Card } from "~/components/ui/card";
 import { IFormField } from "./AddComponentsInterface";
 import { getInitialFormConfig } from "~/utils/helpers";
@@ -16,23 +15,40 @@ import {
 } from "~/components/ui/form";
 
 function ComponentRenderer({
-  variant,
+  formFieldConfig,
   ...props
 }: {
-  variant: IFormField["variant"];
+  formFieldConfig: IFormField;
 }) {
-  switch (variant) {
+  switch (formFieldConfig.variant) {
     case "Input":
-      return <Input {...props} />;
+      return (
+        <Input {...props} readOnly placeholder={formFieldConfig.placeholder} />
+      );
     case "Textarea":
-      return <Textarea {...props} />;
+      return (
+        <Textarea
+          {...props}
+          readOnly
+          placeholder={formFieldConfig.placeholder}
+        />
+      );
     default:
       return null;
   }
 }
 
-const FormPreview = () => {
-  const [formFields, setFormFields] = useState<IFormField[]>([]);
+const FormPreview = ({
+  formFields,
+  setFormFields,
+  setSelectedComponent,
+}: {
+  formFields: IFormField[];
+  setFormFields: React.Dispatch<React.SetStateAction<IFormField[]>>;
+  setSelectedComponent: React.Dispatch<
+    React.SetStateAction<IFormField["name"] | null>
+  >;
+}) => {
   const form = useForm();
 
   const handleDrop = (e: React.DragEvent) => {
@@ -71,10 +87,10 @@ const FormPreview = () => {
                 control={form.control}
                 name={comp.name}
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{comp.label}</FormLabel>
+                  <FormItem onClick={() => setSelectedComponent(comp.name)}>
+                    <FormLabel required={comp.required}>{comp.label}</FormLabel>
                     <FormControl>
-                      <ComponentRenderer variant={comp.variant} {...field} />
+                      <ComponentRenderer formFieldConfig={comp} {...field} />
                     </FormControl>
                     <FormDescription>{comp.description}</FormDescription>
                     <FormMessage />

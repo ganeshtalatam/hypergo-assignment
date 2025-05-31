@@ -8,10 +8,11 @@ export interface IField {
 export interface IFormField {
   variant: IField["variant"];
   type: string;
-  placeholder?: string;
   name: string;
   label: string;
+  placeholder?: string;
   description?: string;
+  required?: boolean;
 }
 
 const initialComponents: IField[] = [
