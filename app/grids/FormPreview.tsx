@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
+import clsx from "clsx";
 
 function ComponentRenderer({
   formFieldConfig,
@@ -41,11 +42,13 @@ function ComponentRenderer({
 const FormPreview = ({
   formFields,
   updateFormFields,
-  setSelectedComponent,
+  currentField,
+  setCurrentField,
 }: {
   formFields: IFormField[];
   updateFormFields: (fields: IFormField[]) => void;
-  setSelectedComponent: React.Dispatch<
+  currentField: IFormField["name"] | null;
+  setCurrentField: React.Dispatch<
     React.SetStateAction<IFormField["name"] | null>
   >;
 }) => {
@@ -54,7 +57,9 @@ const FormPreview = ({
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     const variant = e.dataTransfer.getData("variant") as IFormField["variant"];
-    updateFormFields([...formFields, getInitialFormConfig(variant)]);
+    const newField = getInitialFormConfig(variant);
+    updateFormFields([...formFields, newField]);
+    setCurrentField(newField.name);
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -66,6 +71,8 @@ const FormPreview = ({
     // ✅ This will be type-safe and validated.
     console.log(values);
   }
+
+  console.log(currentField);
 
   return (
     <Card
@@ -83,15 +90,17 @@ const FormPreview = ({
           ) : (
             formFields.map((comp) => (
               <div key={comp.name} className="relative mt-5">
-                <span className="absolute -top-3 right-0 z-10 bg-white px-2 text-xs font-semibold text-gray-500 rounded-sm">
-                  {comp.name}
-                </span>
-                <Card className="p-4">
+                <Card
+                  className={clsx(
+                    "p-4",
+                    currentField === comp.name && "border-primary border-[1px]"
+                  )}
+                >
                   <FormField
                     control={form.control}
                     name={comp.name}
                     render={({ field }) => (
-                      <FormItem onClick={() => setSelectedComponent(comp.name)}>
+                      <FormItem onClick={() => setCurrentField(comp.name)}>
                         <FormLabel required={comp.required}>
                           {comp.label}
                         </FormLabel>

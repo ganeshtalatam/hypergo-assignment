@@ -8,11 +8,11 @@ import { Button } from "~/components/ui/button";
 function EditComponentConfig({
   formFields,
   updateFormFields,
-  selectedComponent,
+  currentField,
 }: {
   formFields: IFormField[];
   updateFormFields: (fields: IFormField[]) => void;
-  selectedComponent: IFormField["name"] | null;
+  currentField: IFormField["name"] | null;
 }) {
   const handleChangeProperty = (
     property: keyof IFormField,
@@ -20,9 +20,7 @@ function EditComponentConfig({
   ) => {
     updateFormFields(
       formFields.map((field) =>
-        field.name === selectedComponent
-          ? { ...field, [property]: value }
-          : field
+        field.name === currentField ? { ...field, [property]: value } : field
       )
     );
   };
@@ -30,15 +28,15 @@ function EditComponentConfig({
   return (
     <Card className="p-4">
       {(() => {
-        if (!selectedComponent) return <div>Start adding components</div>;
+        if (!currentField) return <div>Start adding components</div>;
         const component = formFields.find(
-          (field) => field.name === selectedComponent
+          (field) => field.name === currentField
         );
         if (!component) return <div>Component not found</div>;
 
         return (
           <>
-            <span className="font-semibold">Edit {component.name}</span>
+            <span className="font-semibold">Edit Properties</span>
             <hr className="my-4 border-gray-300" />
             <div className="flex flex-col gap-6">
               {[
@@ -92,7 +90,7 @@ function EditComponentConfig({
               variant="destructive"
               onClick={() => {
                 updateFormFields(
-                  formFields.filter((field) => field.name !== selectedComponent)
+                  formFields.filter((field) => field.name !== currentField)
                 );
               }}
             >

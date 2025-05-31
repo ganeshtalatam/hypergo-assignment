@@ -28,11 +28,11 @@ export default function Index() {
     },
   ]);
   const [currentSection, setCurrentSection] = useState<ISection["id"] | null>(
+    sections[0].id ?? null
+  );
+  const [currentField, setCurrentField] = useState<IFormField["name"] | null>(
     null
   );
-  const [selectedComponent, setSelectedComponent] = useState<
-    IFormField["name"] | null
-  >(null);
 
   const formFields =
     sections.find((section) => section.id === currentSection)?.fields ?? [];
@@ -60,12 +60,13 @@ export default function Index() {
         <FormPreview
           formFields={formFields}
           updateFormFields={updateFormFields}
-          setSelectedComponent={setSelectedComponent}
+          currentField={currentField}
+          setCurrentField={setCurrentField}
         />
       </div>
       <div className="w-1/5">
         <EditComponentConfig
-          selectedComponent={selectedComponent}
+          currentField={currentField}
           formFields={formFields}
           updateFormFields={updateFormFields}
         />

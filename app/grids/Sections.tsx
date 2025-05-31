@@ -61,10 +61,12 @@ const Sections = ({
         <Card
           className={clsx(
             "w-full p-2 flex flex-row items-center",
-            currentSection === section.id && "border-primary border-2"
+            currentSection === section.id && "border-primary border-[1px]"
           )}
           key={section.id}
-          onClick={() => setCurrentSection(section.id)}
+          onClick={() => {
+            setCurrentSection(section.id);
+          }}
         >
           <CardContent className="flex-1 p-1">
             {editId === section.id ? (
