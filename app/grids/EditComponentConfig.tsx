@@ -3,6 +3,7 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { IFormField } from "./AddComponentsInterface";
 import { Checkbox } from "~/components/ui/checkbox";
+import { Button } from "~/components/ui/button";
 
 function EditComponentConfig({
   formFields,
@@ -27,7 +28,7 @@ function EditComponentConfig({
   };
 
   return (
-    <Card className="p-4 w-1/5">
+    <Card className="p-4">
       {(() => {
         if (!selectedComponent) return <div>Start adding components</div>;
         const component = formFields.find(
@@ -37,39 +38,42 @@ function EditComponentConfig({
 
         return (
           <>
-            <span>Edit {component.name}</span>
+            <span className="font-semibold">Edit {component.name}</span>
             <hr className="my-4 border-gray-300" />
             <div className="flex flex-col gap-6">
-              <Label className="flex flex-col items-start gap-2">
-                <span>Label</span>
-                <Input
-                  className="w-full"
-                  value={component.label}
-                  onChange={(e) =>
-                    handleChangeProperty("label", e.target.value)
-                  }
-                />
-              </Label>
-              <Label className="flex flex-col items-start gap-2">
-                <span>Description</span>
-                <Input
-                  className="w-full"
-                  value={component.description}
-                  onChange={(e) =>
-                    handleChangeProperty("description", e.target.value)
-                  }
-                />
-              </Label>
-              <Label className="flex flex-col items-start gap-2">
-                <span>Placeholder</span>
-                <Input
-                  className="w-full"
-                  value={component.placeholder}
-                  onChange={(e) =>
-                    handleChangeProperty("placeholder", e.target.value)
-                  }
-                />
-              </Label>
+              {[
+                {
+                  label: "Label",
+                  name: "label",
+                },
+                {
+                  label: "Placeholder",
+                  name: "placeholder",
+                },
+                {
+                  label: "Description",
+                  name: "description",
+                },
+              ].map((property) => (
+                <Label
+                  key={property.name}
+                  className="flex flex-col items-start gap-2"
+                >
+                  <span>{property.label}</span>
+                  <Input
+                    className="w-full"
+                    value={
+                      component[property.name as keyof IFormField] as string
+                    }
+                    onChange={(e) =>
+                      handleChangeProperty(
+                        property.name as keyof IFormField,
+                        e.target.value
+                      )
+                    }
+                  />
+                </Label>
+              ))}
               <Label className="flex flex-row items-center gap-2 border-2 border-input w-fit p-2 rounded-md">
                 <Checkbox
                   checked={component.required}
@@ -80,6 +84,18 @@ function EditComponentConfig({
                 <span>Required</span>
               </Label>
             </div>
+
+            <Button
+              className="w-full mt-7"
+              variant="destructive"
+              onClick={() => {
+                setFormFields(
+                  formFields.filter((field) => field.name !== selectedComponent)
+                );
+              }}
+            >
+              Delete
+            </Button>
           </>
         );
       })()}
