@@ -14,6 +14,7 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import clsx from "clsx";
+import { Button } from "~/components/ui/button";
 
 function ComponentRenderer({
   formFieldConfig,
@@ -72,17 +73,17 @@ const FormPreview = ({
     console.log(values);
   }
 
-  console.log(currentField);
-
   return (
     <Card
-      className="flex-1 min-h-[300px] p-4 border-2 border-dashed border-gray-300 max-h-[95vh] overflow-y-auto"
+      className="flex-1 min-h-[300px] p-4 border-2 border-dashed border-gray-300 max-h-[90vh] overflow-y-auto"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="font-semibold mb-2">Form Preview</div>
+          <div className="font-semibold mb-2 flex flex-row items-center justify-between">
+            Form Layout
+          </div>
           {formFields.length === 0 ? (
             <div className="text-gray-400 text-center">
               Drop components here

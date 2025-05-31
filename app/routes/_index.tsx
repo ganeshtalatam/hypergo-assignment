@@ -9,6 +9,7 @@ import EditComponentConfig from "~/grids/EditComponentConfig";
 // import AddComponentsInterface from "~/grids/AddComponentsInterface";
 // import FormBuilderLayout from "~/grids/FormBuilderLayout";
 import FormPreview from "~/grids/FormPreview";
+import Navbar from "~/grids/Navbar";
 import Sections from "~/grids/Sections";
 import { getRandomId } from "~/utils/helpers";
 
@@ -46,30 +47,33 @@ export default function Index() {
   };
 
   return (
-    <div className="flex flex-row items-start justify-between gap-4 p-4 max-h-[100vh] overflow-y-auto box-border">
-      <div className="w-1/5 flex flex-col gap-4 max-h-[95vh] overflow-y-auto">
-        <Sections
-          sections={sections}
-          setSections={setSections}
-          currentSection={currentSection}
-          setCurrentSection={setCurrentSection}
-        />
-        <AddComponentsInterface />
-      </div>
-      <div className="w-3/5 max-h-[95vh] overflow-y-auto">
-        <FormPreview
-          formFields={formFields}
-          updateFormFields={updateFormFields}
-          currentField={currentField}
-          setCurrentField={setCurrentField}
-        />
-      </div>
-      <div className="w-1/5">
-        <EditComponentConfig
-          currentField={currentField}
-          formFields={formFields}
-          updateFormFields={updateFormFields}
-        />
+    <div className="flex flex-col h-screen overflow-y-auto">
+      <Navbar />
+      <div className="flex-1 flex flex-row items-start justify-between gap-4 p-4 overflow-y-auto box-border">
+        <div className="w-1/5 flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
+          <Sections
+            sections={sections}
+            setSections={setSections}
+            currentSection={currentSection}
+            setCurrentSection={setCurrentSection}
+          />
+          <AddComponentsInterface />
+        </div>
+        <div className="w-3/5 max-h-[90vh] overflow-y-auto">
+          <FormPreview
+            formFields={formFields}
+            updateFormFields={updateFormFields}
+            currentField={currentField}
+            setCurrentField={setCurrentField}
+          />
+        </div>
+        <div className="w-1/5">
+          <EditComponentConfig
+            currentField={currentField}
+            formFields={formFields}
+            updateFormFields={updateFormFields}
+          />
+        </div>
       </div>
     </div>
   );
