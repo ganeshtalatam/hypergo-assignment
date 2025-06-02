@@ -12,6 +12,8 @@ import FormPreview from "~/grids/FormPreview";
 import Navbar from "~/grids/Navbar";
 import Sections from "~/grids/Sections";
 import { getRandomId } from "~/utils/helpers";
+import { useNavigate } from "@remix-run/react";
+import { encryptConfig } from "~/utils/encryptConfig";
 
 export const meta: MetaFunction = () => {
   return [
@@ -21,6 +23,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const navigate = useNavigate();
   const [sections, setSections] = useState<ISection[]>([
     {
       id: getRandomId("section"),
@@ -46,9 +49,17 @@ export default function Index() {
     );
   };
 
+  const handlePreview = async () => {
+    const encrypted = await encryptConfig(
+      sections,
+      (window as any).ENV.PUBLIC_SECRET_KEY
+    );
+    navigate(`/preview?config=${encodeURIComponent(encrypted)}`);
+  };
+
   return (
     <div className="flex flex-col h-screen overflow-y-auto">
-      <Navbar />
+      <Navbar handlePreview={handlePreview} />
       <div className="flex-1 flex flex-row items-start justify-between gap-4 p-4 overflow-y-auto box-border">
         <div className="w-1/5 flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
           <Sections

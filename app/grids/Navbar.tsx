@@ -1,11 +1,9 @@
-import { useNavigate } from "@remix-run/react";
 import { Button } from "~/components/ui/button";
 
-function Navbar() {
-  const navigate = useNavigate();
+function Navbar({ handlePreview }: { handlePreview: () => void }) {
   return (
     <div className="p-2 w-full flex justify-end items-center shadow-md">
-      <Button onClick={() => navigate("/preview")}>Preview</Button>
+      <Button onClick={handlePreview}>Preview</Button>
     </div>
   );
 }
