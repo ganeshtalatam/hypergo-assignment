@@ -4,7 +4,7 @@ import { Label } from "~/components/ui/label";
 import { IFormField } from "./AddComponentsInterface";
 import { Checkbox } from "~/components/ui/checkbox";
 import { Button } from "~/components/ui/button";
-import { FaTrash, FaPlus, FaGripVertical } from "react-icons/fa";
+import { FaTrash, FaPlus } from "react-icons/fa";
 import { useState } from "react";
 
 function EditComponentConfig({
@@ -73,7 +73,9 @@ function EditComponentConfig({
                     { label: "Description", name: "description" },
                   ].map((property) => (
                     <div key={property.name} className="flex flex-col gap-2">
-                      <Label className="text-sm font-medium">{property.label}</Label>
+                      <Label className="text-sm font-medium">
+                        {property.label}
+                      </Label>
                       <Input
                         className="w-full"
                         value={
@@ -103,7 +105,11 @@ function EditComponentConfig({
                       type="button"
                       className="rounded-full p-1 border border-input hover:bg-accent"
                       onClick={() => setAdding(true)}
-                      aria-label={component.variant === "Select" ? "Add option" : "Add column"}
+                      aria-label={
+                        component.variant === "Select"
+                          ? "Add option"
+                          : "Add column"
+                      }
                     >
                       <FaPlus size={16} />
                     </button>
@@ -122,7 +128,11 @@ function EditComponentConfig({
                           type="button"
                           className="ml-2 text-gray-400 hover:text-red-500"
                           onClick={() => handleRemoveOption(index)}
-                          aria-label={component.variant === "Select" ? "Delete option" : "Delete column"}
+                          aria-label={
+                            component.variant === "Select"
+                              ? "Delete option"
+                              : "Delete column"
+                          }
                         >
                           <FaTrash />
                         </button>
@@ -133,12 +143,18 @@ function EditComponentConfig({
                     <div className="flex items-center gap-2 mt-2 bg-gray-50 border rounded-md px-3 py-2">
                       <Input
                         className="flex-1"
-                        placeholder={component.variant === "Select" ? "Option label" : "Column label"}
+                        placeholder={
+                          component.variant === "Select"
+                            ? "Option label"
+                            : "Column label"
+                        }
                         value={newOption.label}
                         onChange={(e) =>
-                          setNewOption((prev) => ({ ...prev, label: e.target.value }))
+                          setNewOption((prev) => ({
+                            ...prev,
+                            label: e.target.value,
+                          }))
                         }
-                        autoFocus
                       />
                       <Button
                         size="sm"
@@ -171,7 +187,9 @@ function EditComponentConfig({
                       className="w-full"
                       placeholder="Question"
                       value={component.label ?? ""}
-                      onChange={e => handleChangeProperty("label", e.target.value)}
+                      onChange={(e) =>
+                        handleChangeProperty("label", e.target.value)
+                      }
                     />
                   </div>
                   <div className="flex flex-col gap-2">
@@ -180,7 +198,9 @@ function EditComponentConfig({
                       className="w-full"
                       placeholder="Month, day, year"
                       value={component.placeholder ?? ""}
-                      onChange={e => handleChangeProperty("placeholder", e.target.value)}
+                      onChange={(e) =>
+                        handleChangeProperty("placeholder", e.target.value)
+                      }
                     />
                   </div>
                   <div className="flex flex-col gap-2">
@@ -189,13 +209,15 @@ function EditComponentConfig({
                       className="w-full"
                       placeholder="Description"
                       value={component.description ?? ""}
-                      onChange={e => handleChangeProperty("description", e.target.value)}
+                      onChange={(e) =>
+                        handleChangeProperty("description", e.target.value)
+                      }
                     />
                   </div>
                   <div className="flex items-center gap-2 border-2 border-input w-fit p-2 rounded-md mt-2">
                     <Checkbox
                       checked={component.required ?? false}
-                      onCheckedChange={checked =>
+                      onCheckedChange={(checked) =>
                         handleChangeProperty("required", checked as boolean)
                       }
                     />
@@ -209,8 +231,12 @@ function EditComponentConfig({
               className="w-full mt-7"
               variant="destructive"
               onClick={() => {
-                const idx = formFields.findIndex((field) => field.name === currentField);
-                const newFields = formFields.filter((field) => field.name !== currentField);
+                const idx = formFields.findIndex(
+                  (field) => field.name === currentField
+                );
+                const newFields = formFields.filter(
+                  (field) => field.name !== currentField
+                );
                 updateFormFields(newFields);
                 if (newFields.length > 0) {
                   const newIdx = idx > 0 ? idx - 1 : 0;

@@ -83,6 +83,7 @@ export default function Index() {
             currentField={currentField}
             formFields={formFields}
             updateFormFields={updateFormFields}
+            setCurrentField={setCurrentField}
           />
         </div>
       </div>
