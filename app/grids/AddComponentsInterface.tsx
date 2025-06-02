@@ -13,6 +13,7 @@ export interface IFormField {
   placeholder?: string;
   description?: string;
   required?: boolean;
+  options?: { label: string; value: string }[];
 }
 
 export interface ISection {
