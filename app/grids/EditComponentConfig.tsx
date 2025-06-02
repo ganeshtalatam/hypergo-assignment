@@ -98,9 +98,7 @@ function EditComponentConfig({
               {["Select", "Checkbox"].includes(component.variant) && (
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center justify-between mb-2">
-                    <Label className="text-sm font-medium">
-                      {component.variant === "Select" ? "Options" : "Columns"}
-                    </Label>
+                    <Label className="text-sm font-medium">Options</Label>
                     <button
                       type="button"
                       className="rounded-full p-1 border border-input hover:bg-accent"

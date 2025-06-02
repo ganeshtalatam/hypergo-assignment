@@ -14,7 +14,8 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import clsx from "clsx";
-import { Button } from "~/components/ui/button";
+import { Checkbox } from "~/components/ui/checkbox";
+import BaseSelect from "~/components/BaseSelect";
 
 function ComponentRenderer({
   formFieldConfig,
@@ -24,17 +25,19 @@ function ComponentRenderer({
 }) {
   switch (formFieldConfig.variant) {
     case "Input":
-      return (
-        <Input {...props} readOnly placeholder={formFieldConfig.placeholder} />
-      );
+      return <Input {...props} placeholder={formFieldConfig.placeholder} />;
     case "Textarea":
+      return <Textarea {...props} placeholder={formFieldConfig.placeholder} />;
+    case "Select":
       return (
-        <Textarea
+        <BaseSelect
+          options={formFieldConfig.options ?? []}
+          className="w-full"
           {...props}
-          readOnly
-          placeholder={formFieldConfig.placeholder}
         />
       );
+    case "Checkbox":
+      return <Checkbox {...props} disabled />;
     default:
       return null;
   }

@@ -33,6 +33,10 @@ export function getInitialFormConfig(vairant: IField["variant"]): IFormField {
         type: "select",
         name: newFieldName,
         label: "New Select",
+        options: [
+          { label: "Option 1", value: "option1" },
+          { label: "Option 2", value: "option2" },
+        ],
       };
     case "DatePicker":
       return {
